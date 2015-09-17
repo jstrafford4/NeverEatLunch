@@ -22,7 +22,7 @@ namespace NeverEatLunch
 
             builder.RegisterInstance(Console.Out).As<TextWriter>().ExternallyOwned();
             builder.RegisterInstance(Console.In).As<TextReader>().ExternallyOwned();
-            builder.RegisterType<PracticumOrderProcessor>().As<IOrderProcessor>();
+            //builder.RegisterType<PracticumOrderProcessor>().As<IOrderProcessor>();
             builder.RegisterType<PracticumInputProcessor>().As<IInputProcessor>();
 
             var container = builder.Build();

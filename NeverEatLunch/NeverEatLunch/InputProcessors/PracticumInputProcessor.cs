@@ -41,9 +41,9 @@ namespace NeverEatLunch
 
             var delimitedLine = line.Split(',');
             //input must specify a meal time and have at least one argument
-            if (delimitedLine.Length < 2)
+            if (delimitedLine.Length < 2 || delimitedLine[1].Equals(String.Empty))
             {
-                Console.WriteLine("error");
+                Output.WriteLine("error");
                 return;
             }
 

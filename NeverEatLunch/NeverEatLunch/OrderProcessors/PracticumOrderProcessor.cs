@@ -32,7 +32,7 @@ namespace NeverEatLunch
                 currentOrder.ErrorOccurred = true;
                 return currentOrder;
             }
-            for (int i = 1; i < orderStrings.Length; i++)
+            for (int i = 1; ((i < orderStrings.Length) && (!currentOrder.ErrorOccurred)); i++)
             {
                 var dishNumber = 0;
                 var trimmedArgument = orderStrings[i].Trim();
@@ -46,16 +46,21 @@ namespace NeverEatLunch
                     }
 
                     var currentDish = currentMenu.MenuItems[dishNumber];
-                    currentOrder.OrderDish(dishNumber, currentDish);
-                    if(currentOrder.ErrorOccurred)
+                    if(currentDish == null || currentDish.Name == null)
                     {
+                        currentOrder.ErrorOccurred = true;
                         break;
                     }
+                    currentOrder.OrderDish(dishNumber, currentDish);
+                    //if(currentOrder.ErrorOccurred)
+                    //{
+                    //    break;
+                    //}
                 }
                 else //couldn't parse integer from the orderString
                 {
                     currentOrder.ErrorOccurred = true;
-                    break;
+                    //break;
                 }
             }
 
@@ -65,6 +70,8 @@ namespace NeverEatLunch
 
         public virtual string PrintOrder(Order order)
         {
+            if (order == null) return "error";
+
             var dishStrings = new List<string>();
             List<int> dishKeys = order.OrderedDishes.Keys.ToList();
             dishKeys.Sort();

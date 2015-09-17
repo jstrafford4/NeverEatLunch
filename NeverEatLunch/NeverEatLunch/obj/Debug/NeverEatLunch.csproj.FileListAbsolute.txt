@@ -6,3 +6,11 @@ c:\users\jstrafford4\documents\visual studio 2013\Projects\NeverEatLunch\NeverEa
 c:\users\jstrafford4\documents\visual studio 2013\Projects\NeverEatLunch\NeverEatLunch\bin\Debug\Autofac.xml
 c:\users\jstrafford4\documents\visual studio 2013\Projects\NeverEatLunch\NeverEatLunch\obj\Debug\NeverEatLunch.exe
 c:\users\jstrafford4\documents\visual studio 2013\Projects\NeverEatLunch\NeverEatLunch\obj\Debug\NeverEatLunch.pdb
+C:\Users\jstrafford4\Documents\GitHub\NeverEatLunch\NeverEatLunch\NeverEatLunch\bin\Debug\NeverEatLunch.exe.config
+C:\Users\jstrafford4\Documents\GitHub\NeverEatLunch\NeverEatLunch\NeverEatLunch\obj\Debug\NeverEatLunch.exe
+C:\Users\jstrafford4\Documents\GitHub\NeverEatLunch\NeverEatLunch\NeverEatLunch\obj\Debug\NeverEatLunch.pdb
+C:\Users\jstrafford4\Documents\GitHub\NeverEatLunch\NeverEatLunch\NeverEatLunch\bin\Debug\NeverEatLunch.exe
+C:\Users\jstrafford4\Documents\GitHub\NeverEatLunch\NeverEatLunch\NeverEatLunch\bin\Debug\NeverEatLunch.pdb
+C:\Users\jstrafford4\Documents\GitHub\NeverEatLunch\NeverEatLunch\NeverEatLunch\bin\Debug\Autofac.dll
+C:\Users\jstrafford4\Documents\GitHub\NeverEatLunch\NeverEatLunch\NeverEatLunch\bin\Debug\Autofac.xml
+C:\Users\jstrafford4\Documents\GitHub\NeverEatLunch\NeverEatLunch\NeverEatLunch\obj\Debug\NeverEatLunch.csprojResolveAssemblyReference.cache

@@ -18,12 +18,18 @@ namespace NeverEatLunch
             ErrorOccurred = false;
         }
 
+        public Order(Dictionary<int, Dish> orderedDishes)
+        {
+            OrderedDishes = orderedDishes;
+            ErrorOccurred = false;
+
+        }
+
         /// <summary>
         /// 
         /// </summary>
         /// <param name="dishNumber"></param>
-        /// <param name="dishToOrder"></param>
-        /// <returns>true if dish successfully ordered.  false if there was an error.</returns>
+        /// <param name="menuItem"></param>
         public void OrderDish(int dishNumber, MenuItem menuItem)
         {
             if (OrderedDishes.ContainsKey(dishNumber))
