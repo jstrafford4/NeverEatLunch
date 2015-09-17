@@ -16,20 +16,18 @@ namespace NeverEatLunch
         {
             var builder = new ContainerBuilder();
 
+            //Register all menus that will be served.
             builder.RegisterType<MorningMenu>().As<Menu>();
             builder.RegisterType<NightMenu>().As<Menu>();
             builder.RegisterType<PracticumOrderProcessor>().As<IOrderProcessor>();
 
             builder.RegisterInstance(Console.Out).As<TextWriter>().ExternallyOwned();
             builder.RegisterInstance(Console.In).As<TextReader>().ExternallyOwned();
-            //builder.RegisterType<PracticumOrderProcessor>().As<IOrderProcessor>();
             builder.RegisterType<PracticumInputProcessor>().As<IInputProcessor>();
 
             var container = builder.Build();
             using (var scope = container.BeginLifetimeScope())
             {
-                // When processor is resolved, it'll have all of the
-                // registered handlers passed in to the constructor.
                 var inputProcessor = scope.Resolve<IInputProcessor>();
                 inputProcessor.ProcessLines();
             }

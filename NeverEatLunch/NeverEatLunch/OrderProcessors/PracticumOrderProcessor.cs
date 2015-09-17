@@ -8,6 +8,11 @@ namespace NeverEatLunch
 {
     public class PracticumOrderProcessor : IOrderProcessor
     {
+
+        /// <summary>
+        /// All menus being served.
+        /// Users order off of a menu by using the menu's Name as the first argument.
+        /// </summary>
         private IEnumerable<Menu> _menus;
 
 
@@ -16,13 +21,23 @@ namespace NeverEatLunch
             this._menus = menus;
         }
 
-
+        /// <summary>
+        /// Form an order from the array of input argument strings
+        /// Print out the string summarizing that order.
+        /// </summary>
+        /// <param name="orderStrings">input arguments.  first argument is the menu name, all other arguments are dish numbers.</param>
+        /// <returns>string summarizing the best attempt to process the input arguments</returns>
         public virtual string ProcessOrder(string[] orderStrings)
         {
             Order order = FormOrder(orderStrings);
             return PrintOrder(order);
         }
 
+        /// <summary>
+        /// Takes in the input arguments, and adds Dishes to an Order until done or error.
+        /// </summary>
+        /// <param name="orderStrings">input arguments.  first argument is the menu name, all other arguments are dish numbers.</param>
+        /// <returns>A new Order object, with tabulated dish counts for each dish ordered, and error information.</returns>
         public virtual Order FormOrder(string[] orderStrings)
         {
             Order currentOrder = new Order();
@@ -52,15 +67,10 @@ namespace NeverEatLunch
                         break;
                     }
                     currentOrder.OrderDish(dishNumber, currentDish);
-                    //if(currentOrder.ErrorOccurred)
-                    //{
-                    //    break;
-                    //}
                 }
                 else //couldn't parse integer from the orderString
                 {
                     currentOrder.ErrorOccurred = true;
-                    //break;
                 }
             }
 
@@ -68,6 +78,11 @@ namespace NeverEatLunch
 
         }
 
+        /// <summary>
+        /// Gets the string summary of the order.  Doesn't actually "print" it to an output.
+        /// </summary>
+        /// <param name="order">The Order object to print out</param>
+        /// <returns>The string summary of the order.</returns>
         public virtual string PrintOrder(Order order)
         {
             if (order == null) return "error";

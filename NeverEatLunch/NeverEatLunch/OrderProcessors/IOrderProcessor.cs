@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace NeverEatLunch
 {
+
     public interface IOrderProcessor
     {
         string ProcessOrder(string[] orderStrings);

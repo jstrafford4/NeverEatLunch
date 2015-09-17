@@ -7,18 +7,18 @@ using System.Threading.Tasks;
 
 namespace NeverEatLunch
 {
+    /// <summary>
+    /// Dishes are used by Orders
+    /// </summary>
     public class Dish : MenuItem
     {
 
         public int Count;
 
-
         public Dish(string name, bool canHaveMultiple, int count) : base(name, canHaveMultiple)
         {
             Count = count;
         }
-
-
 
         public Dish(MenuItem menuItem) : base(menuItem.Name, menuItem.CanHaveMultiple)
         {

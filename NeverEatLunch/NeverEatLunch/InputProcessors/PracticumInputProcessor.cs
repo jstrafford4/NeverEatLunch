@@ -9,7 +9,7 @@ namespace NeverEatLunch
 {
     public class PracticumInputProcessor : IInputProcessor
     {
-        //protected TextWriter Error;
+
         protected TextReader Input;
         protected TextWriter Output;
         protected IOrderProcessor orderProcessor;
@@ -22,6 +22,10 @@ namespace NeverEatLunch
             this.orderProcessor = orderProcessor;
         }
 
+        /// <summary>
+        /// Read a line at a time from the input TextReader, until given null (Ctrl-Z) input
+        /// Calls ProcessLine on each line.
+        /// </summary>
         public void ProcessLines()
         {
             var currentLine = Input.ReadLine();
@@ -32,10 +36,16 @@ namespace NeverEatLunch
 
                 currentLine = Input.ReadLine();
             }
-
-
         }
 
+
+        /// <summary>
+        /// Splits each line into individual strings delimited by commas.
+        /// If there is not a comma, or there is nothing after the first comma, output "error" without going to the order processor.
+        /// If there is an argument after the first comma, have the order processor process the array of argument strings.
+        /// Finally, write the processed order to output.
+        /// </summary>
+        /// <param name="line">the input string obtained by the TextReader input</param>
         protected void ProcessLine(string line)
         {
 

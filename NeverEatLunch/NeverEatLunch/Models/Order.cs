@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace NeverEatLunch
 {
+    /// <summary>
+    /// Tabulates the dishes ordered, and whether an invalid order was requested
+    /// </summary>
     public class Order
     {
         public Dictionary<int, Dish> OrderedDishes;
@@ -26,7 +29,9 @@ namespace NeverEatLunch
         }
 
         /// <summary>
-        /// 
+        /// MenuItems that have yet to be ordered will add a new dish to the order.
+        /// MenuItems that have been ordered will increase the Count of the ordered dish, if allowed.
+        /// Ordering another dish that can't be ordered anymore will set ErrorOccurred.
         /// </summary>
         /// <param name="dishNumber"></param>
         /// <param name="menuItem"></param>

@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace NeverEatLunch.Models
 {
+    /// <summary>
+    /// MenuItems are used by Menus
+    /// </summary>
     public class MenuItem
     {
         public string Name { get; private set; }
