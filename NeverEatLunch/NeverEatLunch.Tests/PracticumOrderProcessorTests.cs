@@ -42,7 +42,7 @@ namespace NeverEatLunch.Tests
 
 
         [Test]
-        public void FormOrder_Valid_For_TestMenu1_Standard_Order()
+        public void TestMenu1_Standard_Order_Should_Form_Valid_Order()
         {
             var testMenu = new TestMenu1();
             string[] orderStrings = {testMenu.Name, "1", "2", "3"};
@@ -57,7 +57,7 @@ namespace NeverEatLunch.Tests
         }
 
         [Test]
-        public void FormOrder_Continues_Until_Error_Then_Stops()
+        public void Should_Form_Order_Until_Error_Then_Stop()
         {
             var testMenu = new TestMenu1();
             string[] orderStrings = { testMenu.Name, "1", "2", "1", "3" };
@@ -71,7 +71,7 @@ namespace NeverEatLunch.Tests
         }
 
         [Test]
-        public void FormOrder_Doesnt_Care_About_WhiteSpace_For_OrderNumbers()
+        public void Should_Trim_WhiteSpace_For_OrderNumbers()
         {
             var testMenu = new TestMenu1();
             string[] orderStrings = { testMenu.Name, " 1   ", "2 ", "  3" };
@@ -85,7 +85,7 @@ namespace NeverEatLunch.Tests
         }
 
         [Test]
-        public void FormOrder_Does_Care_About_WhiteSpace_For_Menu_Names()
+        public void Should_Not_Trim_WhiteSpace_For_Menu_Names()
         {
             var testMenu = new TestMenu1();
             string[] orderStrings = { testMenu.Name + " ", "1" };
@@ -97,7 +97,7 @@ namespace NeverEatLunch.Tests
         }
 
         [Test]
-        public void FormOrder_Returns_Empty_Order_With_Error_Upon_Invalid_Menu_Name()
+        public void Should_Return_Empty_Order_With_Error_Upon_Invalid_Menu_Name()
         {
             string[] orderStrings = { "Not A Registered Menu Name", "1", "2"};
 
@@ -108,20 +108,19 @@ namespace NeverEatLunch.Tests
         }
 
         [Test]
-        public void FormOrder_Returns_Error_Upon_Invalid_OrderNumber_String1()
+        public void Should_Return_Error_Upon_Invalid_OrderNumber_String1()
         {
             var testMenu = new TestMenu1();
-            string[] orderStrings = { testMenu.Name, "1", "2", "Three" };
+            string[] orderStrings = { testMenu.Name, "Three" };
 
             var testOrder = sut.FormOrder(orderStrings);
 
             NUnit.Framework.Assert.IsTrue(testOrder.ErrorOccurred);
-            NUnit.Framework.Assert.That(testOrder.OrderedDishes[1].Name, Is.EqualTo(testMenu.MenuItems[1].Name));
-            NUnit.Framework.Assert.That(testOrder.OrderedDishes[2].Name, Is.EqualTo(testMenu.MenuItems[2].Name));
+
             NUnit.Framework.Assert.IsFalse(testOrder.OrderedDishes.ContainsKey(3));
         }
         [Test]
-        public void FormOrder_Returns_Error_Upon_Invalid_OrderNumber_String2()
+        public void Should_Return_Error_Upon_Invalid_OrderNumber_String2()
         {
             var testMenu = new TestMenu1();
             string[] orderStrings = { testMenu.Name, "1.0" };
@@ -133,7 +132,7 @@ namespace NeverEatLunch.Tests
         }
 
         [Test]
-        public void FormOrder_Returns_Error_Ordering_From_Empty_Menu()
+        public void Should_Return_Error_Ordering_From_Empty_Menu()
         {
             var testMenu = new EmptyTestMenu();
             string[] orderStrings = { testMenu.Name, "1"};
@@ -145,7 +144,7 @@ namespace NeverEatLunch.Tests
         }
 
         [Test]
-        public void FormOrder_Doesnt_Allow_Ordering_Null_Meal()
+        public void Should_Not_Allow_Ordering_Null_Meal()
         {
             var testMenu = new TestMenuWithNullMeals();
             string[] orderStrings = { testMenu.Name, "1"};
@@ -157,7 +156,7 @@ namespace NeverEatLunch.Tests
         }
 
         [Test]
-        public void FormOrder_Doesnt_Allow_Ordering_Meal_With_Null_Name()
+        public void Should_Not_Allow_Ordering_Meal_With_Null_Name()
         {
             var testMenu = new TestMenuWithNullMealNames();
             string[] orderStrings = { testMenu.Name, "1"};
@@ -183,12 +182,7 @@ namespace NeverEatLunch.Tests
         public void Init()
         {
             var builder = new ContainerBuilder();
-            //TestMenu1 MUST be registered for tests below to run
-            //builder.RegisterType<TestMenu1>().As<Menu>();
-            //builder.RegisterType<TestMenu2>().As<Menu>();
-            //builder.RegisterType<EmptyTestMenu>().As<Menu>();
-            //builder.RegisterType<TestMenuWithNullMeals>().As<Menu>();
-            //builder.RegisterType<TestMenuWithNullMealNames>().As<Menu>();
+
             builder.RegisterType<PracticumOrderProcessor>().As<PracticumOrderProcessor>();
 
             Container = builder.Build();
@@ -200,14 +194,12 @@ namespace NeverEatLunch.Tests
         {
             using (var scope = Container.BeginLifetimeScope())
             {
-                // When processor is resolved, it'll have all of the
-                // registered handlers passed in to the constructor.
                 sut = scope.Resolve<PracticumOrderProcessor>();
             }
         }
 
         [Test]
-        public void PrintOrder_No_Duplicates_No_Errors_Test()
+        public void No_Duplicate_Dishes_Should_Print_Without_Error()
         {
             var dishDictionary = new Dictionary<int, Dish>()
             {
@@ -222,7 +214,7 @@ namespace NeverEatLunch.Tests
             NUnit.Framework.Assert.That(printedOrder, Is.EqualTo("singleItem1, singleItem2, multipleItem1"));
         }
         [Test]
-        public void PrintOrder_Duplicates_No_Errors_Test()
+        public void Should_Print_Multiples_When_Allowed()
         {
             var dishDictionary = new Dictionary<int, Dish>()
             {
@@ -238,7 +230,7 @@ namespace NeverEatLunch.Tests
         }
 
         [Test]
-        public void PrintOrder_No_Duplicates_But_Error_Test()
+        public void Should_Print_Error_Whenever_ErrorOccurred_Equals_True()
         {
             var dishDictionary = new Dictionary<int, Dish>()
             {
@@ -255,24 +247,7 @@ namespace NeverEatLunch.Tests
         }
 
         [Test]
-        public void PrintOrder_DishCountZero_But_Error_Test()
-        {
-            var dishDictionary = new Dictionary<int, Dish>()
-            {
-                {1, new Dish("singleItem1", false, 0)},
-                {2, new Dish("singleItem2", false, 0)},
-                {3, new Dish("multipleItem1", true, 0)}
-            };
-
-            testOrder = new Order(dishDictionary);
-            testOrder.ErrorOccurred = true;
-
-            printedOrder = sut.PrintOrder(testOrder);
-            NUnit.Framework.Assert.That(printedOrder, Is.EqualTo("error"));
-        }
-
-        [Test]
-        public void PrintOrder_DishCountZero_No_Errors_Test()
+        public void Should_Not_Print_Dishes_With_Zero_Count()
         {
             var dishDictionary = new Dictionary<int, Dish>()
             {
@@ -287,8 +262,9 @@ namespace NeverEatLunch.Tests
             NUnit.Framework.Assert.That(printedOrder, Is.EqualTo(""));
         }
 
+        
         [Test]
-        public void PrintOrder_No_Dishes_No_Errors_Test()
+        public void Should_Not_Print_Anything_For_No_Ordered_Dishes()
         {
             var dishDictionary = new Dictionary<int, Dish>()
             {
@@ -301,21 +277,7 @@ namespace NeverEatLunch.Tests
         }
 
         [Test]
-        public void PrintOrder_No_Dishes_But_Errors_Test()
-        {
-            var dishDictionary = new Dictionary<int, Dish>()
-            {
-            };
-
-            testOrder = new Order(dishDictionary);
-            testOrder.ErrorOccurred = true;
-
-            printedOrder = sut.PrintOrder(testOrder);
-            NUnit.Framework.Assert.That(printedOrder, Is.EqualTo("error"));
-        }
-
-        [Test]
-        public void PrintOrder_Keys_Should_Be_Sorted_Before_Output()
+        public void Should_Sort_Keys_Before_Output()
         {
             var dishDictionary = new Dictionary<int, Dish>()
             {

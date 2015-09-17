@@ -33,8 +33,8 @@ namespace NeverEatLunch
         /// MenuItems that have been ordered will increase the Count of the ordered dish, if allowed.
         /// Ordering another dish that can't be ordered anymore will set ErrorOccurred.
         /// </summary>
-        /// <param name="dishNumber"></param>
-        /// <param name="menuItem"></param>
+        /// <param name="dishNumber">Parsed argument from user input</param>
+        /// <param name="menuItem">MenuItem corresponding to dishNumber in Menu used</param>
         public void OrderDish(int dishNumber, MenuItem menuItem)
         {
             if (OrderedDishes.ContainsKey(dishNumber))
